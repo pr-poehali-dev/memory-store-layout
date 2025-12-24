@@ -17,6 +17,7 @@ interface Product {
   speed: string;
   image: string;
   category: string;
+  subcategory?: string;
 }
 
 interface CartItem extends Product {
@@ -31,7 +32,8 @@ const products: Product[] = [
     capacity: '32GB (1x32GB)',
     speed: '3200MHz',
     image: 'https://cdn.poehali.dev/files/Kingston-Fury-Beast-32GB-2x16GB-3200MHz-DDR4-CL16-DIMM-Pamiec-RAM.jpeg',
-    category: 'gaming'
+    category: 'gaming',
+    subcategory: 'ddr4'
   },
   {
     id: 2,
@@ -40,7 +42,28 @@ const products: Product[] = [
     capacity: '32GB',
     speed: '3600MHz',
     image: 'https://cdn.poehali.dev/projects/026eed3a-a70c-42ac-801c-708b59a84280/files/7de4b992-2d16-442a-af17-fccad070f59e.jpg',
-    category: 'gaming'
+    category: 'gaming',
+    subcategory: 'ddr4'
+  },
+  {
+    id: 7,
+    name: 'G.Skill Trident Z5 RGB',
+    price: 15990,
+    capacity: '32GB',
+    speed: '6000MHz',
+    image: 'https://cdn.poehali.dev/projects/026eed3a-a70c-42ac-801c-708b59a84280/files/7de4b992-2d16-442a-af17-fccad070f59e.jpg',
+    category: 'gaming',
+    subcategory: 'ddr5'
+  },
+  {
+    id: 8,
+    name: 'Corsair Dominator Platinum RGB',
+    price: 18990,
+    capacity: '32GB',
+    speed: '6400MHz',
+    image: 'https://cdn.poehali.dev/projects/026eed3a-a70c-42ac-801c-708b59a84280/files/7de4b992-2d16-442a-af17-fccad070f59e.jpg',
+    category: 'gaming',
+    subcategory: 'ddr5'
   },
   {
     id: 3,
@@ -144,6 +167,60 @@ const Index = () => {
 
   const renderCategory = (title: string, category: string) => {
     const categoryProducts = products.filter(p => p.category === category);
+    const hasSubcategories = categoryProducts.some(p => p.subcategory);
+    
+    if (hasSubcategories) {
+      const subcategories = Array.from(new Set(categoryProducts.map(p => p.subcategory).filter(Boolean)));
+      return (
+        <div className="mb-16">
+          <h2 className="text-3xl font-heading font-bold mb-8">{title}</h2>
+          {subcategories.map(sub => {
+            const subProducts = categoryProducts.filter(p => p.subcategory === sub);
+            return (
+              <div key={sub} className="mb-12">
+                <h3 className="text-2xl font-heading font-semibold mb-6 text-primary uppercase">{sub}</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {subProducts.map(product => (
+                    <Card key={product.id} className="overflow-hidden hover:shadow-xl transition-shadow duration-300 animate-fade-in">
+                      <CardHeader className="p-0">
+                        <div className="aspect-square overflow-hidden bg-secondary/30">
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                      </CardHeader>
+                      <CardContent className="p-6">
+                        <CardTitle className="text-xl font-heading mb-2">{product.name}</CardTitle>
+                        <div className="flex gap-2 mb-4">
+                          <Badge variant="secondary">{product.capacity}</Badge>
+                          <Badge variant="secondary">{product.speed}</Badge>
+                        </div>
+                        <p className="text-3xl font-heading font-bold text-primary">
+                          {product.price.toLocaleString('ru-RU')} ₽
+                        </p>
+                      </CardContent>
+                      <CardFooter className="p-6 pt-0">
+                        <Button
+                          onClick={() => addToCart(product)}
+                          className="w-full group"
+                          size="lg"
+                        >
+                          <Icon name="ShoppingCart" className="mr-2 group-hover:scale-110 transition-transform" size={20} />
+                          В корзину
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+    
     return (
       <div className="mb-16">
         <h2 className="text-3xl font-heading font-bold mb-8">{title}</h2>
