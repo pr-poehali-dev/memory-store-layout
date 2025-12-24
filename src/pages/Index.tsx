@@ -26,11 +26,11 @@ interface CartItem extends Product {
 const products: Product[] = [
   {
     id: 1,
-    name: 'Kingston FURY Beast RGB',
+    name: 'DDR4 Kingston Fury HyperX',
     price: 8990,
-    capacity: '16GB',
+    capacity: '32GB (1x32GB)',
     speed: '3200MHz',
-    image: 'https://cdn.poehali.dev/projects/026eed3a-a70c-42ac-801c-708b59a84280/files/7de4b992-2d16-442a-af17-fccad070f59e.jpg',
+    image: 'https://cdn.poehali.dev/files/Kingston-Fury-Beast-32GB-2x16GB-3200MHz-DDR4-CL16-DIMM-Pamiec-RAM.jpeg',
     category: 'gaming'
   },
   {
