@@ -165,9 +165,7 @@ const Index = () => {
                   <Badge variant="secondary">{product.capacity}</Badge>
                   <Badge variant="secondary">{product.speed}</Badge>
                 </div>
-                <p className="text-3xl font-heading font-bold text-primary">
-                  {product.price.toLocaleString('ru-RU')} ₽
-                </p>
+                <p className="text-3xl font-heading font-bold text-[#000000]">10000 Rub</p>
               </CardContent>
               <CardFooter className="p-6 pt-0">
                 <Button
